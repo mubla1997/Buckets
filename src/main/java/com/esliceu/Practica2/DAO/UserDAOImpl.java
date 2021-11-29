@@ -1,24 +1,33 @@
 package com.esliceu.Practica2.DAO;
 
 import com.esliceu.Practica2.models.User;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     @Override
     public User getUser(String username) {
-        return null;
+        return (User) jdbcTemplate.queryForObject("Select * from usuari where username=?;",
+                new BeanPropertyRowMapper(User.class),username);
     }
 
     @Override
     public List <User> getAllUsers() {
-        return null;
+        return jdbcTemplate.query("Select * from usuari;",
+                new BeanPropertyRowMapper<User>(User.class));
     }
 
     @Override
     public void createUser(User user) {
-
+        jdbcTemplate.update("insert into usuari('id','username','passwd') values (?,?,?);",
+        user.getId(),user.getName(),user.getPassword());
     }
 }

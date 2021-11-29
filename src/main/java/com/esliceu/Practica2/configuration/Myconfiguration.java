@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import javax.sql.DataSource;
 
@@ -21,23 +22,19 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages= {"com.esliceu.Practica2"})
 @PropertySource("classpath:application.properties")
 public class Myconfiguration implements WebMvcConfigurer {
-    @Autowired
-    Environment env;
-
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
 
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver bean =
                 new InternalResourceViewResolver();
-        bean.setPrefix("/WEB-INF/");
+        bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
+        bean.setViewClass(JstlView.class);
         return bean;
     }
+
+    @Autowired
+    Environment env;
 
     @Bean
     public DataSource getDatasource(){
