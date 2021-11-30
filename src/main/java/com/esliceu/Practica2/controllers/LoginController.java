@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/login")
-
 public class LoginController {
+
     @Autowired
     Service service;
 
@@ -22,17 +22,18 @@ public class LoginController {
     HttpSession session;
 
     @GetMapping
-    public String form(){
+    public String formulario(){
         return "loginForm";
     }
 
     @PostMapping
-    public String check(Model model, @RequestParam String username, @RequestParam String password){
+    public String checkLogin(Model model, @RequestParam String username, @RequestParam String password){
         if (service.userOk(username,password)){
             session.setAttribute("username",username);
-            return "logged";
+            return "loginOk";
         }
-        model.addAttribute("message","usuari o contrasenya incorrectes");
+
+        model.addAttribute("message","Username or password incorrect");
         model.addAttribute("username",username);
         return "loginForm";
     }

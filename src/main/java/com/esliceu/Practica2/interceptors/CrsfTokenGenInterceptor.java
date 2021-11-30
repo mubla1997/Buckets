@@ -7,6 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +38,7 @@ public class CrsfTokenGenInterceptor implements HandlerInterceptor {
     }
     private String generateToken(){
         String lletres = "abcdefghijklmnopqrstuvwxyz1234567890";
-        Random random = new Random();
+        Random random = new SecureRandom();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 30; i++) {
             sb.append(lletres.charAt(random.nextInt(lletres.length())));

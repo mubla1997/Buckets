@@ -16,8 +16,8 @@ public class UserDAOImpl implements UserDAO {
     private JdbcTemplate jdbcTemplate;
     @Override
     public User getUser(String username, String password) {
-        return (User) jdbcTemplate.queryForObject("Select username,passwd from usuari where username=?;",
-                new BeanPropertyRowMapper(User.class),username);
+        return (User) jdbcTemplate.queryForObject("Select * from usuari where username=?",
+                new BeanPropertyRowMapper(User.class), username);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void createUser(User user) {
-        jdbcTemplate.update("insert into usuari('id','username','passwd') values (?,?,?);",
-        user.getId(),user.getName(),user.getPassword());
+        jdbcTemplate.update("insert into usuari('username','passwd') values (?,?);",
+        user.getUsername(),user.getPasswd());
     }
 }

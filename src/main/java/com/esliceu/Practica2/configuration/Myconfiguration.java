@@ -49,7 +49,7 @@ public class Myconfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(VerifyInterceptor)
-                .addPathPatterns("/objects/**");
+                .addPathPatterns("/object/**");
         registry.addInterceptor(CrsfTokenCheckInterceptor)
                 .addPathPatterns("/**");
         registry.addInterceptor(CrsfTokenGenInterceptor)

@@ -3,7 +3,7 @@ package com.esliceu.Practica2.models;
 public class User {
     int id;
     String username;
-    String password;
+    String passwd;
 
     public int getId() {
         return id;
@@ -13,19 +13,19 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setName(String name) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswd() {
+        return passwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 }
