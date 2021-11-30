@@ -2,7 +2,7 @@ package com.esliceu.Practica2.models;
 
 public class User {
     int id;
-    String name;
+    String username;
     String password;
 
     public int getId() {
@@ -14,11 +14,11 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = username;
     }
 
     public String getPassword() {
