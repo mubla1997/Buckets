@@ -14,9 +14,9 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     UserDAO userDAO;
 
     public boolean userOk(String username, String password){
-        User user = userDAO.getUser(username, password);
-
         if (username == null || password == null) return false;
+        User user = userDAO.getUser(username, password);
+        
         password = GeneratorHash.generaHash(password);
         return user.getUsername().equals(username) && user.getPasswd().equals(password);
     }
