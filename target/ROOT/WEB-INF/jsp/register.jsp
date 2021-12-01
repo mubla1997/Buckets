@@ -21,6 +21,7 @@
                     <div id="register-column" class="col-md-6">
                         <div id="register-box" class="col-md-12">
                             <form id="register-form" class="form" action="" method="post">
+                             <input type= "hidden" name ="csrftoken" value="${csrftoken}">
                                 <h3 class="text-center text-info">Register</h3>
                                 <div class="form-group">
                                     <label for="username" class="text-info">Username</label>
