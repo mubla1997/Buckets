@@ -12,20 +12,18 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     @Autowired
     UserDAO userDAO;
 
-    List <User> userList = userDAO.getAllUsers();
-
     public boolean userOk(String username, String password){
         User user = userDAO.getUser(username, password);
-        System.out.println("Username: " + username + " " + "Password: " + password);
-        System.out.println("UserDatabase: " + user.getUsername() +" "+ "PasswordDatabase: " + user.getPasswd());
-        if (user.getUsername().equals(username) && user.getPasswd().equals(password)){
-            return true;
-        }
-        return  false;
+
+        if (username == null || password == null) return false;
+
+        return user.getUsername().equals(username) && user.getPasswd().equals(password);
     }
 
     @Override
     public boolean createUserOk(String username, String password) {
+        List <User> userList = userDAO.getAllUsers();
+
         for (User user : userList) {
             if (user.getUsername().equals(username)) {
                 return false;

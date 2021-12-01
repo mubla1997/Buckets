@@ -22,13 +22,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List <User> getAllUsers() {
-        return jdbcTemplate.query("Select * from usuari;",
+        return jdbcTemplate.query("Select * from usuari",
                 new BeanPropertyRowMapper<User>(User.class));
     }
 
     @Override
     public void createUser(User user) {
-        jdbcTemplate.update("insert into usuari('username','passwd') values (?,?);",
+        jdbcTemplate.update("insert into usuari (username,passwd) values (?,?)",
         user.getUsername(),user.getPasswd());
     }
 }
