@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void createUser(User user) {
-        jdbcTemplate.update("insert into usuari (username,passwd) values (?,?)",
-        user.getUsername(),user.getPasswd());
+        jdbcTemplate.update("insert into usuari (username,passwd,realname,edad) values (?,?,?,?)",
+        user.getUsername(),user.getPasswd(),user.getRealname(),user.getAge());
     }
 }

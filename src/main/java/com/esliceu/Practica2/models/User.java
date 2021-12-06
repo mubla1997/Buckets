@@ -4,6 +4,8 @@ public class User {
     int id;
     String username;
     String passwd;
+    String realname;
+    int age;
 
     public int getId() {
         return id;
@@ -27,5 +29,21 @@ public class User {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

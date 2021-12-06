@@ -34,14 +34,14 @@ public class ServletController {
     public String GetRegister(){return "register";}
 
     @PostMapping("/register")
-    public String PostRegister(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String repPass){
+    public String PostRegister(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String repPass, @RequestParam String realname, @RequestParam int age){
         if(!password.equals(repPass)){
             model.addAttribute("message","Password error");
             model.addAttribute("username",username);
             return "register";
         }
 
-        if (service.createUserOk(username , password)){
+        if (service.createUserOk(username , password, realname, age)){
             session.setAttribute("username",username);
             model.addAttribute("message", "User created");
             return "loginForm";

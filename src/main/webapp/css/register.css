@@ -5,9 +5,9 @@ body{
 }
 
 #register .container #register-row #register-column #register-box {
-  margin-top: 120px;
+  margin-top: 50px;
   max-width: 600px;
-  height: 380px;
+  height: 550px;
   border: 1px solid #9C9C9C;
   background-color: #000000;
 }

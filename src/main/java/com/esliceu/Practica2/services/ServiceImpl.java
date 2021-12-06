@@ -22,7 +22,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     }
 
     @Override
-    public boolean createUserOk(String username, String password) {
+    public boolean createUserOk(String username, String password, String realname, int age) {
         List <User> userList = userDAO.getAllUsers();
 
         for (User user : userList) {
@@ -34,6 +34,8 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         u.setUsername(username);
         password = GeneratorHash.generaHash(password);
         u.setPasswd(password);
+        u.setRealname(realname);
+        u.setAge(age);
         userDAO.createUser(u);
         return true;
     }

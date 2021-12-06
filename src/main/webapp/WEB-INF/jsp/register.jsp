@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -7,7 +8,7 @@
 
 <html>
 <head>
-<title>Create User</title>
+<title>Register</title>
 <style> <%@include file="/css/register.css"%> </style>
 </head>
 <body>
@@ -35,6 +36,15 @@
                                     <label for="passwordR" class="text-info">Password</label>
                                     <input type="password" class="form-control" id="passwordR" name="repPass" placeholder="Repit password">
                                 </div>
+                                <div class="form-group">
+                                    <label for="realname" class="text-info">Realname</label>
+                                    <input type="text" class="form-control" id="realname" name="realname" placeholder="Enter realname">
+                                </div>
+                                  <div class="form-group">
+                                    <label for="age" class="text-info">Age</label>
+                                    <input type="number" class="form-control" id="age" name="age" placeholder="Enter age">
+                                  </div>
+
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Register">
 
                                 <a href="/login" > Go back </a>
