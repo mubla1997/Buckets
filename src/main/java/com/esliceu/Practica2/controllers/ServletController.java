@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,17 +22,23 @@ public class ServletController {
 
     @GetMapping("/")
     public String home(){
+
         return "home";
     }
 
     @GetMapping("/object")
-    public String GetObject(){return "object";}
+    public String GetObject(@SessionAttribute String username){
+
+        return "object";}
 
     @PostMapping("/object")
-    public String Postobject(){return "object";}
+    public String Postobject(@SessionAttribute String username){
+
+        return "object";}
 
     @GetMapping("/register")
-    public String GetRegister(){return "register";}
+    public String GetRegister(){
+        return "register";}
 
     @PostMapping("/register")
     public String PostRegister(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String repPass, @RequestParam String realname, @RequestParam int age){
@@ -50,5 +57,11 @@ public class ServletController {
         model.addAttribute("message","Failed to create user");
         model.addAttribute("username",username);
         return "register";
+    }
+
+    @GetMapping("/logout")
+    protected String logout(){
+        session.invalidate();
+        return "logout";
     }
 }
