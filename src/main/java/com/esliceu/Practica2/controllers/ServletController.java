@@ -58,7 +58,14 @@ public class ServletController {
         model.addAttribute("username",username);
         return "register";
     }
-
+    @GetMapping("/settings")
+    public String getSettings(){
+        return "settings";
+    }
+    @PostMapping("/settings")
+    public String postSettings(){
+        return "settings";
+    }
     @GetMapping("/logout")
     protected String logout(){
         session.invalidate();

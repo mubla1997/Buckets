@@ -16,6 +16,12 @@
 <c:if test="${not empty 'message'}">
 <h4><div> ${message}</div></h4>
 </c:if>
+    <nav class="navbar navbar-dark justify-content-between" style="background-color: #000000";>
+      <a id="ColorHome" class="navbar-brand navbar-light">Settings of ${username}</a>
+      <form class="form-inline">
+        <a href="/logout" > <button type="button" class="btn btn-danger mr-2">Logout</button> </a>
+      </form>
+    </nav>
        <div id="settings">
             <div class="container">
                 <div id="settings-row" class="row justify-content-center align-items-center">
@@ -48,6 +54,8 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Save">
 
                                 <a href="/object" > Go back </a>
+
+                                <a href="/removeUser" > <button type="button" class="btn btn-danger justify-content-between">Delete User</button> </a>
                             </form>
                         </div>
                     </div>

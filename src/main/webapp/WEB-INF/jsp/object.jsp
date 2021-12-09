@@ -17,7 +17,7 @@
 </c:if>
     <div class="header">
     <nav class="navbar navbar-dark justify-content-between" style="background-color: #000000";>
-      <a id="ColorHome" class="navbar-brand navbar-light">Home de ${username}</a>
+      <a id="ColorHome" class="navbar-brand navbar-light">Home of ${username}</a>
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Search</button>

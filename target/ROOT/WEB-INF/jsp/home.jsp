@@ -15,9 +15,9 @@
     <h1 class="text-center text-info">Home Bucket</h1>
     <h2 class="text-center"> Welcome to oficial page from bucket <h2>
     <h3 class="text-center"> On this page you can upload your files with greater security</h3>
-    <div class="container">
-            <a  href="/login" class="text-info">login here</a>
-            <a  href="/register" class="text-info">Register here</a>
+    <div class="container d-flex flex-inline" >
+            <a  href="/login"><button type="button" class="btn btn-primary mr-3">Login here</button></a>
+            <a  href="/register"><button type="button" class="btn btn-warning">Register here</button></a>
     </div>
 </body>
 </html>

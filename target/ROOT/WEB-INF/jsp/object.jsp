@@ -15,8 +15,16 @@
 <c:if test="${not empty 'message'}">
 <h4><div> ${message}</div></h4>
 </c:if>
-    <div id="header">
-        <a href="/settings" > Settings </a>
+    <div class="header">
+    <nav class="navbar navbar-dark justify-content-between" style="background-color: #000000";>
+      <a id="ColorHome" class="navbar-brand navbar-light">Home of ${username}</a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Search</button>
+        <a href="/settings" > <button type="button" class="btn btn-success mr-2">Settings</button> </a>
+        <a href="/logout" > <button type="button" class="btn btn-danger mr-2">Logout</button> </a>
+      </form>
+    </nav>
     </div>
        <div id="bucket">
             <div class="container">
