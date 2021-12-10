@@ -30,4 +30,10 @@ public class UserDAOImpl implements UserDAO {
         jdbcTemplate.update("insert into usuari (username,passwd,realname,edad) values (?,?,?,?)",
         user.getUsername(),user.getPasswd(),user.getRealname(),user.getAge());
     }
+
+    @Override
+    public void deleteUser(User user) {
+        jdbcTemplate.update("delete from usuari where username = ? ",
+                user.getUsername());
+    }
 }

@@ -15,13 +15,14 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
 
     public boolean userOk(String username, String password){
         if (username == null || password == null) return false;
-        try {
 
+        try {
             User user = userDAO.getUser(username, password);
 
             password = GeneratorHash.generaHash(password);
 
             return user.getUsername().equals(username) && user.getPasswd().equals(password);
+
         }catch(org.springframework.dao.EmptyResultDataAccessException e) {
             return false;
         }
@@ -45,6 +46,12 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         userDAO.createUser(u);
         return true;
     }
+    @Override
+    public boolean deleteUserOk(String username) {
+            User user = new User();
+            user.setUsername(username);
+            userDAO.deleteUser(user);
+            return true;
 
-
+    }
 }

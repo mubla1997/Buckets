@@ -1,0 +1,18 @@
+body {
+  margin: -10px;
+  padding: 0;
+  background: #252323;
+}
+.header{
+padding: -20px;
+}
+#bucket .container #bucket-row #bucket-column #bucket-box {
+  margin-top: 50px;
+  max-width: 600px;
+  height: 200px;
+  border: 1px solid #9C9C9C;
+  background-color: #000000;
+}
+#ColorHome{
+    color: #9C9C9C;
+}

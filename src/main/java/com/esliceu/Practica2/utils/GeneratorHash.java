@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-
+/*Cambiar a base 64 */
 public class GeneratorHash {
     private static MessageDigest md = null;
 

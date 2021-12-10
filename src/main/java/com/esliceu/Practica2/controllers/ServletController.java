@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -29,7 +30,9 @@ public class ServletController {
     @GetMapping("/object")
     public String GetObject(@SessionAttribute String username){
 
-        return "object";}
+        return "object";
+    }
+
 
     @PostMapping("/object")
     public String Postobject(@SessionAttribute String username){
@@ -63,12 +66,18 @@ public class ServletController {
         return "settings";
     }
     @PostMapping("/settings")
-    public String postSettings(){
-        return "settings";
+    public String postSettings(@SessionAttribute String username, @RequestParam boolean delete){
+        if(delete) {
+            service.deleteUserOk(username);
+            return "redirect: /logout";
+        }
+        return "redirect: /object";
     }
+
+
     @GetMapping("/logout")
     protected String logout(){
         session.invalidate();
-        return "logout";
+        return "redirect: /login";
     }
 }

@@ -8,4 +8,5 @@ public interface UserDAO {
     User getUser(String username , String password);
     List<User> getAllUsers();
     void createUser(User user);
+    void deleteUser(User user);
 }
