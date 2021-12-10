@@ -33,7 +33,7 @@
                         <div id="bucket-box" class="col-md-12">
                             <form id="bucket-form" class="form" action="" method="post">
                              <input type= "hidden" name ="csrftoken" value="${csrftoken}">
-                                <h3 class="text-center text-info">Register</h3>
+                                <h3 class="text-center text-info">Bucket</h3>
                                 <div class="form-group">
                                     <label for="bucket" class="text-info">Name bucket: </label>
                                     <input type="text" class="form-control" id="bucket" name="bucket" placeholder="Enter name for bucket">

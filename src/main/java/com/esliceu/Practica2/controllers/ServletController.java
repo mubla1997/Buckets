@@ -66,9 +66,10 @@ public class ServletController {
         return "settings";
     }
     @PostMapping("/settings")
-    public String postSettings(@SessionAttribute String username, @RequestParam boolean delete){
+    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete){
         if(delete) {
             service.deleteUserOk(username);
+            model.addAttribute("message","User deleted");
             return "redirect: /logout";
         }
         return "redirect: /object";
