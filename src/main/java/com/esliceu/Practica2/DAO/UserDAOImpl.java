@@ -36,4 +36,11 @@ public class UserDAOImpl implements UserDAO {
         jdbcTemplate.update("delete from usuari where username = ? ",
                 user.getUsername());
     }
+
+    @Override
+    public int getId(String username) {
+        jdbcTemplate.queryForObject("Select id from usuari where username = ?",
+                new BeanPropertyRowMapper <>(User.class), username);
+        return 0;
+    }
 }

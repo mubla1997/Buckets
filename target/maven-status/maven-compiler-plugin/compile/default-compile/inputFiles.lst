@@ -1,12 +1,15 @@
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\controllers\ServletController.java
+C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\BucketDAOImpl.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\controllers\LoginController.java
+C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\BucketDAO.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\UserDAO.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\UserDAOImpl.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\configuration\ConfigInizializer.java
-C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\objectDAO.java
+C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\ObjectDAO.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\services\Service.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\models\User.java
-C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\objectDAOImpl.java
+C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\DAO\ObjectDAOImpl.java
+C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\models\Bucket.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\models\Object.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\interceptors\VerifyInterceptor.java
 C:\Users\pablo\OneDrive\Escritorio\GSDAW\Practica2\src\main\java\com\esliceu\Practica2\utils\GeneratorHash.java

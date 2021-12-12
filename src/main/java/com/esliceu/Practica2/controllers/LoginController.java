@@ -30,7 +30,7 @@ public class LoginController {
     public String checkLogin(Model model, @RequestParam String username, @RequestParam String password){
         if (service.userOk(username,password)){
             session.setAttribute("username",username);
-            return "loginOk";
+            return "redirect: /bucket";
         }
 
         model.addAttribute("message","Username or password incorrect");

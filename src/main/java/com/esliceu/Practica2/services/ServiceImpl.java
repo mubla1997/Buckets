@@ -1,6 +1,10 @@
 package com.esliceu.Practica2.services;
 
+import com.esliceu.Practica2.DAO.BucketDAO;
+import com.esliceu.Practica2.DAO.ObjectDAO;
 import com.esliceu.Practica2.DAO.UserDAO;
+import com.esliceu.Practica2.models.Bucket;
+import com.esliceu.Practica2.models.Object;
 import com.esliceu.Practica2.models.User;
 import com.esliceu.Practica2.utils.GeneratorHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,12 @@ import java.util.List;
 public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    ObjectDAO objectDAO;
+
+    @Autowired
+    BucketDAO bucketDAO;
 
     public boolean userOk(String username, String password){
         if (username == null || password == null) return false;
@@ -54,4 +64,55 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
             return true;
 
     }
+
+    @Override
+    public boolean createBucket(String nombre,String owner, int id_user) {
+        List <Bucket> bucketList = bucketDAO.getAllBuckets();
+
+        for(Bucket bucket : bucketList){
+            if(bucket.getNombre().equals(nombre)){
+                return false;
+            }
+        }
+        Bucket b = new Bucket();
+        b.setNombre(nombre);
+        b.setUsername_usuari(owner);
+        b.setId_user(id_user);
+        bucketDAO.createBucket(b);
+        return true;
+    }
+
+    @Override
+    public boolean deleteBucket(int id) {
+        Bucket bucket = new Bucket();
+        bucket.setId(id);
+        bucketDAO.deleteBucket(bucket);
+        return true;
+
+    }
+
+    @Override
+    public boolean createObject(String nombre, String directorio, String owner, byte[] fichero, int id_user) {
+        List <Object> objectList = objectDAO.getAllObjects();
+
+        for (Object object : objectList) {
+            if (object.getNombre().equals(nombre)) {
+                return false;
+            }
+        }
+        if(nombre == null) return false;
+        if(directorio == null) return false;
+        if(fichero == null) return false;
+
+       Object o = new Object();
+        o.setNombre(nombre);
+        o.setDirectorio(directorio);
+        o.setUsername_usuari(owner);
+        o.setFichero(fichero);
+        o.setId_user(id_user);
+        objectDAO.createObject(o);
+        return true;
+    }
+
+
 }

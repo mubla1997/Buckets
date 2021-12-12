@@ -2,9 +2,11 @@ package com.esliceu.Practica2.models;
 
 public class Object {
     int id;
-    String name;
-    String owner;
-    byte[] hash;
+    String nombre;
+    String directorio;
+    String username_usuari;
+    byte[] fichero;
+    int id_user;
 
     public int getId() {
         return id;
@@ -14,26 +16,43 @@ public class Object {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getDirectorio() {
+        return directorio;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-    public byte[] getHash() {
-        return hash;
+    public void setDirectorio(String directorio) {
+        this.directorio = directorio;
     }
 
-    public void setHash(byte[] hash) {
-        this.hash = hash;
+    public String getUsername_usuari() {
+        return username_usuari;
+    }
+
+    public void setUsername_usuari(String username_usuari) {
+        this.username_usuari = username_usuari;
+    }
+
+    public byte[] getFichero() {
+        return fichero;
+    }
+
+    public void setFichero(byte[] fichero) {
+        this.fichero = fichero;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 }
