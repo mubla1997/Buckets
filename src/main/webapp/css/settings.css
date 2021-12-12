@@ -5,9 +5,9 @@ body{
 }
 
 #settings .container #settings-row #settings-column #settings-box {
-  margin-top: 50px;
+  margin-top: 25px;
   max-width: 600px;
-  height: 620px;
+  height: 525px;
   border: 1px solid #9C9C9C;
   background-color: #000000;
 }

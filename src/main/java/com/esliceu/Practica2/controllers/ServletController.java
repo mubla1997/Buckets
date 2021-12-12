@@ -94,13 +94,20 @@ public class ServletController {
     }
 
     @PostMapping("/settings")
-    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete){
+    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete,@RequestParam String password, @RequestParam String realname, @RequestParam int age){
+        if(service.editUser(username,password,realname,age)){
+            session.setAttribute("username",username);
+            model.addAttribute("message", "User edited");
+            return "bucket";
+        }
         if(delete) {
             service.deleteUserOk(username);
             model.addAttribute("message","User deleted");
             return "redirect: /logout";
         }
-        return "redirect: /bucket";
+        model.addAttribute("message","Failed to edit user");
+        model.addAttribute("username",username);
+        return "bucket";
     }
 
 

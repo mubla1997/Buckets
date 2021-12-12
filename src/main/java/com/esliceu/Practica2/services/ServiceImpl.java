@@ -66,6 +66,35 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     }
 
     @Override
+    public boolean editUser(String username, String password, String realname, int age) {
+        List <User> userList = userDAO.getAllUsers();
+
+        for (User user : userList) {
+
+            if (user.getUsername().equals(username)) {
+                User u = new User();
+                u.setUsername(user.getUsername());
+                password = GeneratorHash.generaHash(password);
+                u.setPasswd(password);
+
+                if(realname == null){
+                    u.setRealname(user.getRealname());
+                }
+                u.setRealname(realname);
+
+                if(age == -1){
+                    u.setAge(user.getAge());
+                }
+                u.setAge(age);
+
+                userDAO.editUser(u);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean createBucket(String nombre,String owner, int id_user) {
         List <Bucket> bucketList = bucketDAO.getAllBuckets();
 

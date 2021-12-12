@@ -43,4 +43,10 @@ public class UserDAOImpl implements UserDAO {
                 new BeanPropertyRowMapper <>(User.class), username);
         return 0;
     }
+
+    @Override
+    public void editUser(User user) {
+        jdbcTemplate.update("update usuari set username = ?, passwd = ?, realname = ?, edad = ? where username = ? ",
+                user.getUsername(),user.getPasswd(),user.getRealname(),user.getAge(), user.getUsername());
+    }
 }
