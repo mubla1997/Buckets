@@ -8,4 +8,6 @@ public interface BucketDAO {
     void createBucket(Bucket bucket);
     void deleteBucket(Bucket bucket);
     List <Bucket> getAllBuckets();
+    int getId(String nombre);
+
 }

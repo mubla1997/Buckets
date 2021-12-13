@@ -14,8 +14,8 @@ public class BucketDAOImpl implements BucketDAO{
 
     @Override
     public void createBucket(Bucket bucket) {
-        jdbcTemplate.update("insert into bucket(nombre,username_usuari,id_user) values (?,?," +
-                "(select id from usuari where username = ?))", bucket.getNombre(),bucket.getUsername_usuari(),bucket.getUsername_usuari());
+        jdbcTemplate.update("insert into bucket(nombre,username_usuari,fecha,id_user) values (?,?,?," +
+                "(select id from usuari where username = ?))", bucket.getNombre(),bucket.getUsername_usuari(),bucket.getFecha(),bucket.getUsername_usuari());
     }
 
     @Override
@@ -28,4 +28,12 @@ public class BucketDAOImpl implements BucketDAO{
         return jdbcTemplate.query("Select *  from bucket",
                 new BeanPropertyRowMapper <Bucket>(Bucket.class));
     }
+
+    @Override
+    public int getId(String nombre) {
+        jdbcTemplate.queryForObject("Select id from bucket where nombre = ?",
+                new BeanPropertyRowMapper <>(Object.class), nombre);
+        return 0;
+    }
+
 }

@@ -10,6 +10,8 @@ import com.esliceu.Practica2.utils.GeneratorHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,10 +76,13 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
             if (user.getUsername().equals(username)) {
                 User u = new User();
                 u.setUsername(user.getUsername());
+                if (password == "") {
+                    u.setPasswd(user.getPasswd());
+                }
                 password = GeneratorHash.generaHash(password);
                 u.setPasswd(password);
 
-                if(realname == null){
+                if(realname.equals("")){
                     u.setRealname(user.getRealname());
                 }
                 u.setRealname(realname);
@@ -95,8 +100,9 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     }
 
     @Override
-    public boolean createBucket(String nombre,String owner, int id_user) {
+    public boolean createBucket(String nombre, String owner, int id_user) {
         List <Bucket> bucketList = bucketDAO.getAllBuckets();
+        LocalDate localeDate = LocalDate.now();
 
         for(Bucket bucket : bucketList){
             if(bucket.getNombre().equals(nombre)){
@@ -106,6 +112,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         Bucket b = new Bucket();
         b.setNombre(nombre);
         b.setUsername_usuari(owner);
+        b.setFecha(String.valueOf(localeDate));
         b.setId_user(id_user);
         bucketDAO.createBucket(b);
         return true;
@@ -119,28 +126,26 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         return true;
 
     }
-
     @Override
     public boolean createObject(String nombre, String directorio, String owner, byte[] fichero, int id_user) {
         List <Object> objectList = objectDAO.getAllObjects();
-
-        for (Object object : objectList) {
-            if (object.getNombre().equals(nombre)) {
-                return false;
+            for (Object object : objectList) {
+                if (object.getNombre().equals(nombre)) {
+                    return false;
+                }
             }
-        }
-        if(nombre == null) return false;
-        if(directorio == null) return false;
-        if(fichero == null) return false;
+            if (nombre == null) return false;
+            if (directorio == null) return false;
+            if (fichero == null) return false;
 
-       Object o = new Object();
-        o.setNombre(nombre);
-        o.setDirectorio(directorio);
-        o.setUsername_usuari(owner);
-        o.setFichero(fichero);
-        o.setId_user(id_user);
-        objectDAO.createObject(o);
-        return true;
+            Object o = new Object();
+            o.setNombre(nombre);
+            o.setDirectorio(directorio);
+            o.setUsername_usuari(owner);
+            o.setFichero(fichero);
+            o.setId_user(id_user);
+            objectDAO.createObject(o);
+            return true;
     }
 
 

@@ -16,7 +16,12 @@ padding: -20px;
 #ColorHome{
     color: #9C9C9C;
 }
-
+.containerList{
+  margin-left: 400px;
+  margin-top: 50px;
+  max-width: 600px;
+  background-color: #FFFFFF;
+}
 h4{
     color: #FF0000;
     margin: 10px

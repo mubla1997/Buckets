@@ -33,16 +33,16 @@
                 <div id="bucket-row" class="row justify-content-center align-items-center">
                     <div id="bucket-column" class="col-md-6">
                         <div id="bucket-box" class="col-md-12">
-                            <form id="bucket-form" class="form" action="/object" method="post" >
+                            <form id="bucket-form" class="form" action="/object/${uri}" method="post" >
                              <input type= "hidden" name ="csrftoken" value="${csrftoken}">
                                 <h3 class="text-center text-info">Object</h3>
                                 <div class="form-group">
                                     <label for="bucket" class="text-info"> Name file: </label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name for bucket">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name for file">
                                 </div>
                                  <div class="form-group">
                                     <label for="bucket" class="text-info"> Directory: </label>
-                                    <input type="text" class="form-control" id="directory" name="directory" placeholder="Enter directory for bucket">
+                                    <input type="text" class="form-control" id="directory" name="directory" placeholder="Enter directory for file">
                                  </div>
                                    <div class="form-group">
                                       <label for="bucket" class="text-info"> file: </label>
@@ -55,5 +55,30 @@
                 </div>
             </div>
         </div>
+                <div class="containerList">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name File</th>
+                      <th scope="col">Directory</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <c:set var="count" value="1"/>
+                   <c:forEach var = "object" items="${listObject}">
+                        <th scope="row">${count}</th>
+                        <td>${object.nombre}</a></td>
+                        <td><a href="/object/${uri}${object.directorio}">${object.directorio}</a></td>
+                        <td>${object.username_usuari}</td>
+                        <td><form><input type="submit" class="btn btn-danger" value ="Delete"></form><td>
+                        </tr>
+                        <c:set var="count" value="${count + 1}"/>
+                   </c:forEach>
+                   </tbody>
+                </table>
+               </div>
 </body>
 </html>

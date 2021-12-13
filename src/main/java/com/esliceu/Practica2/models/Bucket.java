@@ -1,10 +1,13 @@
 package com.esliceu.Practica2.models;
 
+import java.util.Date;
+
 public class Bucket {
     int id;
     String nombre;
     String username_usuari;
     int id_user;
+    String fecha;
 
     public int getId() {
         return id;
@@ -36,5 +39,13 @@ public class Bucket {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

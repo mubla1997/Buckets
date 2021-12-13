@@ -48,5 +48,30 @@
                 </div>
             </div>
         </div>
+        <div class="containerList">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name Bucket</th>
+              <th scope="col">owner</th>
+              <th scope="col">Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+           <c:set var="count" value="1"/>
+           <c:forEach var = "bucket" items="${listBucket}">
+                <th scope="row">${count}</th>
+                <td><a href="/object/${bucket.nombre}">/${bucket.nombre}</a></td>
+                <td>${bucket.username_usuari}</td>
+                <td>${bucket.fecha}</td>
+                <td><form><input type="submit" class="btn btn-danger" value ="Delete"></form><td>
+                </tr>
+                <c:set var="count" value="${count + 1}"/>
+           </c:forEach>
+           </tbody>
+        </table>
+       </div>
 </body>
 </html>

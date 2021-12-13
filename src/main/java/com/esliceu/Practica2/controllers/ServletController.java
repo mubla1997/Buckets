@@ -1,18 +1,20 @@
 package com.esliceu.Practica2.controllers;
 
 import com.esliceu.Practica2.DAO.BucketDAO;
+import com.esliceu.Practica2.DAO.ObjectDAO;
 import com.esliceu.Practica2.DAO.UserDAO;
-import com.esliceu.Practica2.models.User;
+import com.esliceu.Practica2.models.Bucket;
+import com.esliceu.Practica2.models.Object;
 import com.esliceu.Practica2.services.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ServletController {
@@ -26,6 +28,12 @@ public class ServletController {
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    BucketDAO bucketDAO;
+
+    @Autowired
+    ObjectDAO objectDAO;
+
     @GetMapping("/")
     public String home(){
         return "home";
@@ -33,38 +41,52 @@ public class ServletController {
 
     @GetMapping("/bucket")
     public String GetBucket(@SessionAttribute String username){
+        List<Bucket> listBucket = bucketDAO.getAllBuckets();
+        session.setAttribute("listBucket", listBucket);
         return "bucket";
     }
 
     @PostMapping("/bucket")
     public String PostBucket(Model model, @SessionAttribute String username, @RequestParam String name){
+
         if(service.createBucket(name,username,userDAO.getId(username))){
             model.addAttribute("message", "Bucket created");
             session.setAttribute("username", username);
-            return "bucket";
+
+            return ("redirect: /bucket");
         }
         model.addAttribute("message", "Failed to create bucket");
         model.addAttribute("username",username);
-        return "bucket";
+        return "redirect: /bucket";
     }
 
-    @GetMapping("/object")
-    public String GetObject(@SessionAttribute String username){
+    @GetMapping("/object/{uri}")
+    public String GetObject(@SessionAttribute String username,@PathVariable String uri){
+        List<Object> listObject = objectDAO.getAllObjects();
+        session.setAttribute("listObject", listObject);
         return "object";
     }
 
-    @PostMapping("/object")
-    public String Postobject(Model model,@SessionAttribute String username, @RequestParam String name, @RequestParam  String directory, @RequestParam byte[] file){
+    @PostMapping("/object/{uri}")
+    public String Postobject(Model model, @SessionAttribute String username, @RequestParam String name, @RequestParam  String directory, @RequestParam byte[] file, @PathVariable String uri){
         if(service.createObject(name,directory,username,file,userDAO.getId(username))) {
 
             model.addAttribute("message", "Object created");
             session.setAttribute("username", username);
-            return "object";
+            return "redirect: /object/{uri}";
         }
             model.addAttribute("message", "Failed to create object");
             model.addAttribute("username",username);
-        return "object";
+        return "object/{uri}";
         }
+     @GetMapping("/object/{uri}/**")
+     public String getDirectory(Model model, @SessionAttribute String username,@PathVariable String uri, HttpServletRequest request){
+
+        String url = request.getRequestURL().toString();
+        url.replace("http://localhost:8080/object/"+ uri +"/","");
+         System.out.println("url: " + url);
+        return "object";
+     }
 
     @GetMapping("/register")
     public String GetRegister(){
@@ -98,7 +120,7 @@ public class ServletController {
         if(service.editUser(username,password,realname,age)){
             session.setAttribute("username",username);
             model.addAttribute("message", "User edited");
-            return "bucket";
+            return "Object";
         }
         if(delete) {
             service.deleteUserOk(username);
@@ -107,7 +129,7 @@ public class ServletController {
         }
         model.addAttribute("message","Failed to edit user");
         model.addAttribute("username",username);
-        return "bucket";
+        return "object";
     }
 
 

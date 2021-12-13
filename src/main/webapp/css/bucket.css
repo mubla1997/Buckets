@@ -13,6 +13,13 @@ padding: -20px;
   border: 1px solid #9C9C9C;
   background-color: #000000;
 }
+.containerList{
+  margin-left: 400px;
+  margin-top: 50px;
+  max-width: 600px;
+  background-color: #FFFFFF;
+
+}
 #ColorHome{
     color: #9C9C9C;
 }
