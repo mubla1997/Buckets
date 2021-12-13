@@ -108,6 +108,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
             if(bucket.getNombre().equals(nombre)){
                 return false;
             }
+            if(nombre == null) return false;
         }
         Bucket b = new Bucket();
         b.setNombre(nombre);

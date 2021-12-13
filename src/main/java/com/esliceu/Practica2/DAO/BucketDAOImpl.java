@@ -7,20 +7,21 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public class BucketDAOImpl implements BucketDAO{
+public class BucketDAOImpl implements BucketDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
     public void createBucket(Bucket bucket) {
         jdbcTemplate.update("insert into bucket(nombre,username_usuari,fecha,id_user) values (?,?,?," +
-                "(select id from usuari where username = ?))", bucket.getNombre(),bucket.getUsername_usuari(),bucket.getFecha(),bucket.getUsername_usuari());
+                "(select id from usuari where username = ?))", bucket.getNombre(), bucket.getUsername_usuari(), bucket.getFecha(), bucket.getUsername_usuari());
     }
 
     @Override
     public void deleteBucket(Bucket bucket) {
-        jdbcTemplate.update("delete from bucket where id = ?",bucket.getId());
+        jdbcTemplate.update("delete from bucket where id = ?", bucket.getId());
     }
 
     @Override

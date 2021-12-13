@@ -1,7 +1,6 @@
 package com.esliceu.Practica2.DAO;
 
 import com.esliceu.Practica2.models.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,16 +18,17 @@ public class UserDAOImpl implements UserDAO {
         return jdbcTemplate.queryForObject("Select * from usuari where username=?",
                 new BeanPropertyRowMapper <>(User.class), username);
     }
+
     @Override
     public List <User> getAllUsers() {
         return jdbcTemplate.query("Select * from usuari",
-                new BeanPropertyRowMapper<User>(User.class));
+                new BeanPropertyRowMapper <User>(User.class));
     }
 
     @Override
     public void createUser(User user) {
         jdbcTemplate.update("insert into usuari (username,passwd,realname,edad) values (?,?,?,?)",
-        user.getUsername(),user.getPasswd(),user.getRealname(),user.getAge());
+                user.getUsername(), user.getPasswd(), user.getRealname(), user.getAge());
     }
 
     @Override
@@ -47,6 +47,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void editUser(User user) {
         jdbcTemplate.update("update usuari set username = ?, passwd = ?, realname = ?, edad = ? where username = ? ",
-                user.getUsername(),user.getPasswd(),user.getRealname(),user.getAge(), user.getUsername());
+                user.getUsername(), user.getPasswd(), user.getRealname(), user.getAge(), user.getUsername());
     }
 }

@@ -15,28 +15,30 @@ import java.util.concurrent.TimeUnit;
 public class CrsfTokenGenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
-        Cache<String,Boolean> tokenCache = getCache(req);
+        Cache <String, Boolean> tokenCache = getCache(req);
         String token = generateToken();
-        tokenCache.put(token,true);
-        req.setAttribute("csrftoken",token);
+        tokenCache.put(token, true);
+        req.setAttribute("csrftoken", token);
         return true;
     }
+
     static Cache <String, Boolean> getCache(HttpServletRequest req) {
-        Cache<String,Boolean> cache = (Cache<String,Boolean>) req.getSession().getAttribute("tokencache");
-        if (cache == null){
+        Cache <String, Boolean> cache = (Cache <String, Boolean>) req.getSession().getAttribute("tokencache");
+        if (cache == null) {
             cache = buildCache();
-            req.getSession().setAttribute("tokencache",cache);
+            req.getSession().setAttribute("tokencache", cache);
         }
         return cache;
     }
 
-    static Cache<String, Boolean> buildCache() {
+    static Cache <String, Boolean> buildCache() {
         return CacheBuilder.newBuilder()
                 .maximumSize(3000)
                 .expireAfterWrite(1, TimeUnit.MINUTES)
                 .build();
     }
-    private String generateToken(){
+
+    private String generateToken() {
         String lletres = "abcdefghijklmnopqrstuvwxyz1234567890";
         Random random = new SecureRandom();
         StringBuilder sb = new StringBuilder();

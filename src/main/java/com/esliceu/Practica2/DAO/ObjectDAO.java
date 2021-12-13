@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface ObjectDAO {
     void createObject(Object object);
+
     void deleteObject(Object object);
+
     List <Object> getAllObjects();
+
+    List <Object> getObjectsDirectory(String directorio);
 
 }

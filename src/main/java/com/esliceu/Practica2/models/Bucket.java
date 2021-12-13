@@ -1,7 +1,5 @@
 package com.esliceu.Practica2.models;
 
-import java.util.Date;
-
 public class Bucket {
     int id;
     String nombre;

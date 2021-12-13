@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 public class CrsfTokenCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
-        if (!req.getMethod().equalsIgnoreCase("post")){
+        if (!req.getMethod().equalsIgnoreCase("post")) {
 
             return true;
         }
 
-        Cache <String,Boolean> tokenCache = CrsfTokenGenInterceptor.getCache(req);
+        Cache <String, Boolean> tokenCache = CrsfTokenGenInterceptor.getCache(req);
         String csrf = req.getParameter("csrftoken");
-        if (csrf == null || tokenCache.getIfPresent(csrf) == null){
+        if (csrf == null || tokenCache.getIfPresent(csrf) == null) {
             res.sendError(403);
             return false;
         }

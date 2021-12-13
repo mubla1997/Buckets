@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,106 +34,113 @@ public class ServletController {
     ObjectDAO objectDAO;
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "home";
     }
 
     @GetMapping("/bucket")
-    public String GetBucket(@SessionAttribute String username){
-        List<Bucket> listBucket = bucketDAO.getAllBuckets();
+    public String GetBucket(@SessionAttribute String username) {
+        List <Bucket> listBucket = bucketDAO.getAllBuckets();
         session.setAttribute("listBucket", listBucket);
         return "bucket";
     }
 
     @PostMapping("/bucket")
-    public String PostBucket(Model model, @SessionAttribute String username, @RequestParam String name){
+    public String PostBucket(Model model, @SessionAttribute String username, @RequestParam String name) {
 
-        if(service.createBucket(name,username,userDAO.getId(username))){
+        if (service.createBucket(name, username, userDAO.getId(username))) {
             model.addAttribute("message", "Bucket created");
             session.setAttribute("username", username);
 
             return ("redirect: /bucket");
         }
         model.addAttribute("message", "Failed to create bucket");
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "redirect: /bucket";
     }
 
     @GetMapping("/object/{uri}")
-    public String GetObject(@SessionAttribute String username,@PathVariable String uri){
-        List<Object> listObject = objectDAO.getAllObjects();
+    public String GetObject(@SessionAttribute String username, @PathVariable String uri) {
+        List <Object> listObject = objectDAO.getAllObjects();
         session.setAttribute("listObject", listObject);
         return "object";
     }
 
     @PostMapping("/object/{uri}")
-    public String Postobject(Model model, @SessionAttribute String username, @RequestParam String name, @RequestParam  String directory, @RequestParam byte[] file, @PathVariable String uri){
-        if(service.createObject(name,directory,username,file,userDAO.getId(username))) {
+    public String Postobject(Model model, @SessionAttribute String username, @RequestParam String name, @RequestParam String directory, @RequestParam byte[] file, @PathVariable String uri) {
+        if (service.createObject(name, directory, username, file, userDAO.getId(username))) {
 
             model.addAttribute("message", "Object created");
             session.setAttribute("username", username);
             return "redirect: /object/{uri}";
         }
-            model.addAttribute("message", "Failed to create object");
-            model.addAttribute("username",username);
+        model.addAttribute("message", "Failed to create object");
+        model.addAttribute("username", username);
         return "object/{uri}";
-        }
-     @GetMapping("/object/{uri}/**")
-     public String getDirectory(Model model, @SessionAttribute String username,@PathVariable String uri, HttpServletRequest request){
+    }
+
+    @GetMapping("/object/{uri}/**")
+    public String getDirectory(Model model, @SessionAttribute String username, @PathVariable String uri, HttpServletRequest request) {
+
 
         String url = request.getRequestURL().toString();
-        url.replace("http://localhost:8080/object/"+ uri +"/","");
-         System.out.println("url: " + url);
-        return "object";
-     }
+        url.replace("http://localhost:8080/object/" + uri + "/", "");
+
+        String urlDirectory = request.getRequestURL().toString();
+        urlDirectory.replace("http://localhost:8080/object/", "");
+        List <Object> listObjectDirectory = objectDAO.getObjectsDirectory(urlDirectory);
+        session.setAttribute("listObjectDirectory", listObjectDirectory);
+        return "directory";
+    }
 
     @GetMapping("/register")
-    public String GetRegister(){
-        return "register";}
+    public String GetRegister() {
+        return "register";
+    }
 
     @PostMapping("/register")
-    public String PostRegister(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String repPass, @RequestParam String realname, @RequestParam int age){
-        if(!password.equals(repPass)){
-            model.addAttribute("message","Password error");
-            model.addAttribute("username",username);
+    public String PostRegister(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String repPass, @RequestParam String realname, @RequestParam int age) {
+        if (!password.equals(repPass)) {
+            model.addAttribute("message", "Password error");
+            model.addAttribute("username", username);
             return "register";
         }
 
-        if (service.createUserOk(username , password, realname, age)){
-            session.setAttribute("username",username);
+        if (service.createUserOk(username, password, realname, age)) {
+            session.setAttribute("username", username);
             model.addAttribute("message", "User created");
             return "loginForm";
         }
 
-        model.addAttribute("message","Failed to create user");
-        model.addAttribute("username",username);
+        model.addAttribute("message", "Failed to create user");
+        model.addAttribute("username", username);
         return "register";
     }
+
     @GetMapping("/settings")
-    public String getSettings(){
+    public String getSettings() {
         return "settings";
     }
 
     @PostMapping("/settings")
-    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete,@RequestParam String password, @RequestParam String realname, @RequestParam int age){
-        if(service.editUser(username,password,realname,age)){
-            session.setAttribute("username",username);
+    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete, @RequestParam String password, @RequestParam String realname, @RequestParam int age) {
+        if (service.editUser(username, password, realname, age)) {
+            session.setAttribute("username", username);
             model.addAttribute("message", "User edited");
             return "Object";
         }
-        if(delete) {
+        if (delete) {
             service.deleteUserOk(username);
-            model.addAttribute("message","User deleted");
+            model.addAttribute("message", "User deleted");
             return "redirect: /logout";
         }
-        model.addAttribute("message","Failed to edit user");
-        model.addAttribute("username",username);
+        model.addAttribute("message", "Failed to edit user");
+        model.addAttribute("username", username);
         return "object";
     }
 
-
     @GetMapping("/logout")
-    protected String logout(){
+    protected String logout() {
         session.invalidate();
         return "redirect: /login";
     }

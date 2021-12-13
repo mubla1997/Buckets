@@ -18,18 +18,24 @@ public class ObjectDAOImpl implements ObjectDAO {
     public void createObject(Object object) {
         jdbcTemplate.update("insert into object(nombre, directorio,username_usuari,fichero,id_user) values (?,?,?,?," +
                         "(select id from usuari where username = ?))",
-                object.getNombre(), object.getDirectorio(),object.getUsername_usuari(),object.getFichero(),object.getUsername_usuari());
+                object.getNombre(), object.getDirectorio(), object.getUsername_usuari(), object.getFichero(), object.getUsername_usuari());
     }
 
     @Override
     public void deleteObject(Object object) {
         jdbcTemplate.update("delete from object where id = ?",
-        object.getId());
+                object.getId());
     }
 
     @Override
     public List <Object> getAllObjects() {
         return jdbcTemplate.query("Select *  from object",
                 new BeanPropertyRowMapper <Object>(Object.class));
+    }
+
+    @Override
+    public List <Object> getObjectsDirectory(String directorio) {
+        return jdbcTemplate.query("Select *  from object where directorio = ?",
+                new BeanPropertyRowMapper <Object>(Object.class), directorio);
     }
 }

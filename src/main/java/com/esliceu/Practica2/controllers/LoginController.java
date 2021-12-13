@@ -22,19 +22,19 @@ public class LoginController {
     HttpSession session;
 
     @GetMapping
-    public String formulario(){
+    public String formulario() {
         return "loginForm";
     }
 
     @PostMapping
-    public String checkLogin(Model model, @RequestParam String username, @RequestParam String password){
-        if (service.userOk(username,password)){
-            session.setAttribute("username",username);
+    public String checkLogin(Model model, @RequestParam String username, @RequestParam String password) {
+        if (service.userOk(username, password)) {
+            session.setAttribute("username", username);
             return "redirect: /bucket";
         }
 
-        model.addAttribute("message","Username or password incorrect");
-        model.addAttribute("username",username);
+        model.addAttribute("message", "Username or password incorrect");
+        model.addAttribute("username", username);
         return "loginForm";
     }
 }

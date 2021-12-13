@@ -8,7 +8,6 @@ public class Object {
     byte[] fichero;
     String bucket_name;
     int id_user;
-    int id_bucket;
 
     public int getId() {
         return id;
@@ -64,13 +63,5 @@ public class Object {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
-    }
-
-    public int getId_bucket() {
-        return id_bucket;
-    }
-
-    public void setId_bucket(int id_bucket) {
-        this.id_bucket = id_bucket;
     }
 }

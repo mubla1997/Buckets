@@ -21,18 +21,18 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages= {"com.esliceu.Practica2"})
+@ComponentScan(basePackages = {"com.esliceu.Practica2"})
 @PropertySource("classpath:application.properties")
 public class Myconfiguration implements WebMvcConfigurer {
 
     @Autowired
+    Environment env;
+    @Autowired
     @Qualifier("verifyint")
     private HandlerInterceptor VerifyInterceptor;
-
     @Autowired
     @Qualifier("tokenCheckInt")
     private HandlerInterceptor CrsfTokenCheckInterceptor;
-
     @Autowired
     @Qualifier("tokenGenInt")
     private HandlerInterceptor CrsfTokenGenInterceptor;
@@ -46,8 +46,9 @@ public class Myconfiguration implements WebMvcConfigurer {
         bean.setViewClass(JstlView.class);
         return bean;
     }
+
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(VerifyInterceptor)
                 .addPathPatterns("/object/**");
         registry.addInterceptor(CrsfTokenCheckInterceptor)
@@ -57,11 +58,8 @@ public class Myconfiguration implements WebMvcConfigurer {
 
     }
 
-    @Autowired
-    Environment env;
-
     @Bean
-    public DataSource getDatasource(){
+    public DataSource getDatasource() {
         MysqlDataSource mds = new MysqlDataSource();
         //Datos obtenidos del archivo de propiedades.
         mds.setURL(env.getProperty("jdbc.url"));
@@ -69,9 +67,10 @@ public class Myconfiguration implements WebMvcConfigurer {
         mds.setPassword(env.getProperty("jdbc.password"));
         return mds;
     }
+
     @Bean
     // Acceso a la base de datos.
-    public JdbcTemplate getJdbcTemplate(DataSource dataSource){
+    public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }
