@@ -50,10 +50,10 @@
                                 <input type="hidden" name="delete" value="false">
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Save">
 
-                                <a href="/object" > Go back </a>
+                                <a href="/bucket" > Go back </a>
                             </form>
 
-                            <form id="settingsDelete-form" class="form" action="" method="post">
+                            <form id="settingsDelete-form" class="form" action="/settings" method="post">
                               <input type= "hidden" name ="csrftoken" value="${csrftoken}">
                               <input type="hidden" name="delete" value="true">
                               <input type="Submit" name="deleteButton" class="btn btn-danger justify-content-between" value="Delete User">

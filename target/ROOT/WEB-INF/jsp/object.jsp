@@ -7,7 +7,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
 <head>
-<title>Create Bucket</title>
+<title>Create Object</title>
 <style> <%@include file="/css/object.css"%> </style>
 </head>
 <body>
@@ -49,6 +49,7 @@
                                       <input type="file" class="form-control" id="bucket" name="file">
                                    </div>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Create">
+                                <a href="/bucket" > Go bucket </a>
                             </form>
                         </div>
                     </div>

@@ -50,7 +50,7 @@
                                 <input type="hidden" name="delete" value="false">
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Save">
 
-                                <a href="/object" > Go back </a>
+                                <a href="/bucket" > Go back </a>
                             </form>
 
                             <form id="settingsDelete-form" class="form" action="/settings" method="post">
