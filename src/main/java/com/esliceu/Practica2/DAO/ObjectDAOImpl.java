@@ -1,6 +1,7 @@
 package com.esliceu.Practica2.DAO;
 
 import com.esliceu.Practica2.models.Object;
+import com.esliceu.Practica2.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,5 +38,12 @@ public class ObjectDAOImpl implements ObjectDAO {
     public List <Object> getObjectsDirectory(String directorio) {
         return jdbcTemplate.query("Select *  from object where directorio = ?",
                 new BeanPropertyRowMapper <Object>(Object.class), directorio);
+    }
+
+    @Override
+    public Object getObjectById(int id) {
+        return jdbcTemplate.queryForObject("Select *  from object where id = ?",
+                new BeanPropertyRowMapper <>(Object.class), id);
+
     }
 }

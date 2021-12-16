@@ -71,7 +71,7 @@
                    <c:set var="count" value="1"/>
                    <c:forEach var = "object" items="${listObject}">
                         <th scope="row">${count}</th>
-                        <td>${object.nombre}</a></td>
+                        <td><a href="/download/${object.id}">/${object.nombre}</a></td>
                         <td><a href="/object/${uri}${object.directorio}">${object.directorio}</a></td>
                         <td>${object.username_usuari}</td>
                         <td><form><input type="submit" class="btn btn-danger" value ="Delete"></form><td>

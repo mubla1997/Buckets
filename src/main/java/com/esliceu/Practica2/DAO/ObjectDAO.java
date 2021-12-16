@@ -13,4 +13,6 @@ public interface ObjectDAO {
 
     List <Object> getObjectsDirectory(String directorio);
 
+    Object getObjectById(int id);
+
 }

@@ -93,6 +93,12 @@ public class ServletController {
         return "directory";
     }
 
+    @GetMapping("/download/{uri}")
+    public String getDownload(Model model, @SessionAttribute String username, @PathVariable int uri){
+        model.addAttribute("object",objectDAO.);
+        return "download";
+    }
+
     @GetMapping("/register")
     public String GetRegister() {
         return "register";
@@ -123,7 +129,7 @@ public class ServletController {
     }
 
     @PostMapping("/settings")
-    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete, @RequestParam String password, @RequestParam String realname, @RequestParam int age) {
+    public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete, @RequestParam(required = false) String password, @RequestParam(required = false) String realname, @RequestParam(required = false) int age) {
         if (delete) {
             service.deleteUserOk(username);
             model.addAttribute("message", "User deleted");
@@ -133,11 +139,11 @@ public class ServletController {
             service.editUser(username, password, realname, age);
             session.setAttribute("username", username);
             model.addAttribute("message", "User edited");
-            return "Object";
+            return "bucket";
         }
         model.addAttribute("message", "Failed to edit user");
         model.addAttribute("username", username);
-        return "object";
+        return "bucket";
     }
 
     @GetMapping("/logout")
