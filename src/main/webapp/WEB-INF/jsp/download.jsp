@@ -7,8 +7,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
 <head>
-<title>Create Bucket</title>
-<style> <%@include file="/css/bucket.css"%> </style>
+<title>Information File</title>
+<style> <%@include file="/css/download.css"%> </style>
 </head>
 <body>
 
@@ -28,8 +28,29 @@
     <h4><div> ${message}</div></h4>
     </c:if>
 
-   NameFile: "${object.nombre}"
-   </br>
-   Owner: "${object.username_usuari}"
+     <div id="download">
+            <div class="container">
+                <div id="download-row" class="row justify-content-center align-items-center">
+                    <div id="download-column" class="col-md-6">
+                        <div id="download-box" class="col-md-12">
+                            <form id="download-form" class="form" action="/login" method="post">
+                                <input type= "hidden" name ="csrftoken" value="${csrftoken}">
+                                <h3 class="text-center text-secondary">Information</h3>
+                                <div class="form-group">
+                                    <label for="nameFile" >NameFile: ${object.nombre}</label><br>
+                                </div>
+                                <div class="form-group">
+                                    <label for="owner">Owner: "${object.username_usuari}"</label><br>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="Download">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

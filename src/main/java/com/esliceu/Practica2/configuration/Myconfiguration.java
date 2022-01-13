@@ -8,7 +8,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -23,7 +29,8 @@ import javax.sql.DataSource;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.esliceu.Practica2"})
 @PropertySource("classpath:application.properties")
-public class Myconfiguration implements WebMvcConfigurer {
+@EnableJdbcRepositories("com.esliceu.Practica2.repositories")
+public class Myconfiguration extends AbstractJdbcConfiguration implements WebMvcConfigurer {
 
     @Autowired
     Environment env;
@@ -72,5 +79,15 @@ public class Myconfiguration implements WebMvcConfigurer {
     // Acceso a la base de datos.
     public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public NamedParameterJdbcOperations getNamedParameterJdbcOperations(DataSource datasource){
+        return new NamedParameterJdbcTemplate(datasource);
+    }
+
+    @Bean
+    public TransactionManager transactionManager(DataSource datasource){
+        return new DataSourceTransactionManager(datasource);
     }
 }

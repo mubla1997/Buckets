@@ -1,35 +1,35 @@
 package com.esliceu.Practica2.services;
 
-import com.esliceu.Practica2.DAO.BucketDAO;
-import com.esliceu.Practica2.DAO.ObjectDAO;
-import com.esliceu.Practica2.DAO.UserDAO;
+
 import com.esliceu.Practica2.models.Bucket;
 import com.esliceu.Practica2.models.Object;
 import com.esliceu.Practica2.models.User;
+import com.esliceu.Practica2.repositories.BucketRepo;
+import com.esliceu.Practica2.repositories.ObjectRepo;
+import com.esliceu.Practica2.repositories.UserRepo;
 import com.esliceu.Practica2.utils.GeneratorHash;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class ServiceImpl implements com.esliceu.Practica2.services.Service {
-    @Autowired
-    UserDAO userDAO;
+    BucketRepo bucketRepo;
+    ObjectRepo objectRepo;
+    UserRepo userRepo;
 
-    @Autowired
-    ObjectDAO objectDAO;
-
-    @Autowired
-    BucketDAO bucketDAO;
+    ServiceImpl(BucketRepo bucketRepo, ObjectRepo objectRepo,UserRepo userRepo){
+        this.bucketRepo = bucketRepo;
+        this.objectRepo = objectRepo;
+        this.userRepo = userRepo;
+    }
 
     public boolean userOk(String username, String password){
         if (username == null || password == null) return false;
 
         try {
-            User user = userDAO.getUser(username, password);
+            User user = userRepo.getUser(username, password);
 
             password = GeneratorHash.generaHash(password);
 
@@ -42,7 +42,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
 
     @Override
     public boolean createUserOk(String username, String password, String realname, int age) {
-        List <User> userList = userDAO.getAllUsers();
+        List <User> userList = userRepo.findAll();
 
         for (User user : userList) {
             if (user.getUsername().equals(username)) {
@@ -55,21 +55,21 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         u.setPasswd(password);
         u.setRealname(realname);
         u.setAge(age);
-        userDAO.createUser(u);
+        userRepo.save(u);
         return true;
     }
     @Override
     public boolean deleteUserOk(String username) {
             User user = new User();
             user.setUsername(username);
-            userDAO.deleteUser(user);
+            userRepo.delete(user);
             return true;
 
     }
 
     @Override
     public boolean editUser(String username, String password, String realname, int age) {
-        List <User> userList = userDAO.getAllUsers();
+        List <User> userList = userRepo.findAll();
 
         for (User user : userList) {
 
@@ -92,7 +92,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
                 }
                 u.setAge(age);
 
-                userDAO.editUser(u);
+                userRepo.editUser(username,password,realname,age,u);
                 return true;
             }
         }
@@ -101,7 +101,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
 
     @Override
     public boolean createBucket(String nombre, String owner, int id_user) {
-        List <Bucket> bucketList = bucketDAO.getAllBuckets();
+        List <Bucket> bucketList = bucketRepo.findAll();
         LocalDate localeDate = LocalDate.now();
 
         for(Bucket bucket : bucketList){
@@ -115,7 +115,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         b.setUsername_usuari(owner);
         b.setFecha(String.valueOf(localeDate));
         b.setId_user(id_user);
-        bucketDAO.createBucket(b);
+        bucketRepo.save(b);
         return true;
     }
 
@@ -123,13 +123,13 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
     public boolean deleteBucket(int id) {
         Bucket bucket = new Bucket();
         bucket.setId(id);
-        bucketDAO.deleteBucket(bucket);
+        bucketRepo.delete(bucket);
         return true;
 
     }
     @Override
     public boolean createObject(String nombre, String directorio, String owner, byte[] fichero, int id_user) {
-        List <Object> objectList = objectDAO.getAllObjects();
+        List <Object> objectList = objectRepo.findAll();
             for (Object object : objectList) {
                 if (object.getNombre().equals(nombre)) {
                     return false;
@@ -145,8 +145,33 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
             o.setUsername_usuari(owner);
             o.setFichero(fichero);
             o.setId_user(id_user);
-            objectDAO.createObject(o);
+            objectRepo.save(o);
             return true;
+    }
+
+    @Override
+    public List <Bucket> findAllBuckets() {
+        return bucketRepo.findAll();
+    }
+
+    @Override
+    public List <Object> findAllObjects() {
+        return objectRepo.findAll();
+    }
+
+    @Override
+    public int getIdUser(String username) {
+        return userRepo.getId(username);
+    }
+
+    @Override
+    public List <Object> getObjectsFromDirectory(String nombre) {
+        return objectRepo.getObjectsDirectory(nombre);
+    }
+
+    @Override
+    public Object getObjectById(int id) {
+        return objectRepo.getObjectById(id);
     }
 
 

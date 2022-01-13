@@ -1,11 +1,9 @@
 package com.esliceu.Practica2.controllers;
 
-import com.esliceu.Practica2.DAO.BucketDAO;
-import com.esliceu.Practica2.DAO.ObjectDAO;
-import com.esliceu.Practica2.DAO.UserDAO;
+
 import com.esliceu.Practica2.models.Bucket;
 import com.esliceu.Practica2.models.Object;
-import com.esliceu.Practica2.services.Service;
+import com.esliceu.Practica2.services.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,20 +16,15 @@ import java.util.List;
 @Controller
 public class ServletController {
 
+    private ServiceImpl serviceImpl;
+
     @Autowired
-    Service service;
+    ServletController(ServiceImpl serviceImpl){
+        this.serviceImpl = serviceImpl;
+    }
 
     @Autowired
     HttpSession session;
-
-    @Autowired
-    UserDAO userDAO;
-
-    @Autowired
-    BucketDAO bucketDAO;
-
-    @Autowired
-    ObjectDAO objectDAO;
 
     @GetMapping("/")
     public String home() {
@@ -40,7 +33,7 @@ public class ServletController {
 
     @GetMapping("/bucket")
     public String GetBucket(@SessionAttribute String username) {
-        List <Bucket> listBucket = bucketDAO.getAllBuckets();
+        List <Bucket> listBucket = serviceImpl.findAllBuckets();
         session.setAttribute("listBucket", listBucket);
         return "bucket";
     }
@@ -48,7 +41,7 @@ public class ServletController {
     @PostMapping("/bucket")
     public String PostBucket(Model model, @SessionAttribute String username, @RequestParam String name) {
 
-        if (service.createBucket(name, username, userDAO.getId(username))) {
+        if (serviceImpl.createBucket(name, username, serviceImpl.getIdUser(username))) {
             model.addAttribute("message", "Bucket created");
             session.setAttribute("username", username);
 
@@ -61,14 +54,14 @@ public class ServletController {
 
     @GetMapping("/object/{uri}")
     public String GetObject(@SessionAttribute String username, @PathVariable String uri) {
-        List <Object> listObject = objectDAO.getAllObjects();
+        List <Object> listObject = serviceImpl.findAllObjects();
         session.setAttribute("listObject", listObject);
         return "object";
     }
 
     @PostMapping("/object/{uri}")
     public String Postobject(Model model, @SessionAttribute String username, @RequestParam String name, @RequestParam String directory, @RequestParam byte[] file, @PathVariable String uri) {
-        if (service.createObject(name, directory, username, file, userDAO.getId(username))) {
+        if (serviceImpl.createObject(name, directory, username, file, serviceImpl.getIdUser(username))) {
 
             model.addAttribute("message", "Object created");
             session.setAttribute("username", username);
@@ -88,14 +81,15 @@ public class ServletController {
 
         String urlDirectory = request.getRequestURL().toString();
         urlDirectory.replace("http://localhost:8080/object/", "");
-        List <Object> listObjectDirectory = objectDAO.getObjectsDirectory(urlDirectory);
+        List <Object> listObjectDirectory = serviceImpl.getObjectsFromDirectory(urlDirectory);
         session.setAttribute("listObjectDirectory", listObjectDirectory);
         return "directory";
     }
 
     @GetMapping("/download/{uri}")
     public String getDownload(Model model, @SessionAttribute String username, @PathVariable int uri){
-        model.addAttribute("object",objectDAO.);
+        Object object = serviceImpl.getObjectById(uri);
+        model.addAttribute("object", object);
         return "download";
     }
 
@@ -112,7 +106,7 @@ public class ServletController {
             return "register";
         }
 
-        if (service.createUserOk(username, password, realname, age)) {
+        if (serviceImpl.createUserOk(username, password, realname, age)) {
             session.setAttribute("username", username);
             model.addAttribute("message", "User created");
             return "loginForm";
@@ -131,12 +125,12 @@ public class ServletController {
     @PostMapping("/settings")
     public String postSettings(Model model, @SessionAttribute String username, @RequestParam boolean delete, @RequestParam(required = false) String password, @RequestParam(required = false) String realname, @RequestParam(required = false) int age) {
         if (delete) {
-            service.deleteUserOk(username);
+            serviceImpl.deleteUserOk(username);
             model.addAttribute("message", "User deleted");
             return "redirect: /logout";
         }
         if (!delete) {
-            service.editUser(username, password, realname, age);
+            serviceImpl.editUser(username, password, realname, age);
             session.setAttribute("username", username);
             model.addAttribute("message", "User edited");
             return "bucket";

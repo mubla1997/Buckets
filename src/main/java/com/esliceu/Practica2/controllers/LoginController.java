@@ -1,6 +1,6 @@
 package com.esliceu.Practica2.controllers;
 
-import com.esliceu.Practica2.services.Service;
+import com.esliceu.Practica2.services.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+    private ServiceImpl serviceImpl;
 
     @Autowired
-    Service service;
+    LoginController(ServiceImpl serviceImpl){this.serviceImpl = serviceImpl;}
 
     @Autowired
     HttpSession session;
@@ -28,7 +29,7 @@ public class LoginController {
 
     @PostMapping
     public String checkLogin(Model model, @RequestParam String username, @RequestParam String password) {
-        if (service.userOk(username, password)) {
+        if (serviceImpl.userOk(username, password)) {
             session.setAttribute("username", username);
             return "redirect: /bucket";
         }
