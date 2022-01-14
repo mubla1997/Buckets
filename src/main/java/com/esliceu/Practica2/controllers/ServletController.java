@@ -5,12 +5,14 @@ import com.esliceu.Practica2.models.Bucket;
 import com.esliceu.Practica2.models.Object;
 import com.esliceu.Practica2.services.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -87,10 +89,12 @@ public class ServletController {
     }
 
     @GetMapping("/download/{uri}")
-    public String getDownload(Model model, @SessionAttribute String username, @PathVariable int uri){
-        Object object = serviceImpl.getObjectById(uri);
-        model.addAttribute("object", object);
-        return "download";
+    public HttpHeaders getDownload(@SessionAttribute String username, @PathVariable int uri) throws IOException {
+        Object fileName = serviceImpl.getObjectById(uri);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=" + fileName.getNombre());
+
+        return headers;
     }
 
     @GetMapping("/register")
