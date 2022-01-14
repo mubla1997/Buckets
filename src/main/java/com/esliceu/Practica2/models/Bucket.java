@@ -1,6 +1,11 @@
 package com.esliceu.Practica2.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("bucket")
 public class Bucket {
+    @Id
     int id;
     String nombre;
     String username_usuari;

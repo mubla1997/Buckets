@@ -1,10 +1,17 @@
 package com.esliceu.Practica2.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("usuari")
 public class User {
+    @Id
     int id;
     String username;
     String passwd;
     String realname;
+    @Column("edad")
     int age;
 
     public int getId() {

@@ -6,14 +6,17 @@ com\esliceu\Practica2\DAO\UserDAOImpl.class
 com\esliceu\Practica2\DAO\ObjectDAOImpl.class
 com\esliceu\Practica2\DAO\BucketDAOImpl.class
 com\esliceu\Practica2\DAO\UserDAO.class
+com\esliceu\Practica2\repositories\ObjectRepo.class
 com\esliceu\Practica2\interceptors\VerifyInterceptor.class
 com\esliceu\Practica2\models\Bucket.class
 com\esliceu\Practica2\controllers\LoginController.class
+com\esliceu\Practica2\repositories\BucketRepo.class
 com\esliceu\Practica2\configuration\Myconfiguration.class
 com\esliceu\Practica2\services\Service.class
 com\esliceu\Practica2\DAO\ObjectDAO.class
 com\esliceu\Practica2\utils\GeneratorHash.class
 com\esliceu\Practica2\models\User.class
+com\esliceu\Practica2\repositories\UserRepo.class
 com\esliceu\Practica2\DAO\BucketDAO.class
 com\esliceu\Practica2\controllers\ServletController.class
 com\esliceu\Practica2\interceptors\CrsfTokenGenInterceptor.class

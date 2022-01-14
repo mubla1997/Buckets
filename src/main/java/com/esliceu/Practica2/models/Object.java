@@ -1,6 +1,11 @@
 package com.esliceu.Practica2.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("object")
 public class Object {
+    @Id
     int id;
     String nombre;
     String directorio;

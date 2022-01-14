@@ -29,7 +29,7 @@ public class ServiceImpl implements com.esliceu.Practica2.services.Service {
         if (username == null || password == null) return false;
 
         try {
-            User user = userRepo.getUser(username, password);
+            User user = userRepo.getUser(username);
 
             password = GeneratorHash.generaHash(password);
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserRepo extends CrudRepository<User,Integer> {
     @Query("Select * from usuari where username= :user")
-    User getUser(@Param("user") String username, String password);
+    User getUser(@Param("user") String username);
     List<User> findAll();
     User save(User user);
     void delete(User user);
